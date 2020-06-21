@@ -21,7 +21,21 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+      :root {
+        --base: #ffc600;
+        --spacing: 10px;
+        --blur: 10px;
+      }
 
+      img {
+        padding: var(--spacing);
+        background-color: var(--base);
+        filter: blur(var(--blur));
+      }
+
+      .hl {
+        color: var(--base);
+      }
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -45,6 +59,16 @@
   </style>
 
   <script>
+    let inputs = document.querySelectorAll('.controls input')
+    inputs.forEach(input => input.addEventListener('change', inputUpdate))
+
+
+    function inputUpdate(e) {
+      console.log(e.target.value)
+      const suffix = e.target.dataset.sizing || ""
+      document.documentElement.style.setProperty(`--${e.target.name}`,`${e.target.value}${suffix}`)
+
+    }
   </script>
 
 </body>
