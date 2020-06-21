@@ -31,17 +31,37 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
-
+    let one = inventors.filter(inventor => inventor.year < 1600 && inventor.year >= 1500)
+    console.table(one)
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
-
+    let two = inventors.map(inventor => `${inventor.first} ${inventor.last}`)
+    console.table(two)
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const sortByBirthday = (a, b) => {
+      if (a.year >= b.year) return 1
+      else return -1
+    }
+    let three = inventors.sort(sortByBirthday)
+
+    console.table(three)
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    const allYears = inventors.reduce((sum, inventor) => {
+      return sum += (inventor.passed - inventor.year)
+    }, 0)
+    console.log(allYears)
 
     // 5. Sort the inventors by years lived
+    const yearLived = (a,b) => {
+      if ((a.passed - a.year) > (b.passed - b.year)) return 1
+      else -1
+    }
+    const sortByLongestYearLived = inventors.sort(yearLived)
+    console.table(sortByLongestYearLived)
+
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -49,11 +69,23 @@
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const byLastName = (a,b) => {
+      if (a.split(",")[0] < b.split(",")[0]) return 1
+      else return -1
+    }
+    const sortAlphabetical = people.sort(byLastName)
+    console.log(sortAlphabetical)
+
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-
+    const sumData = data.reduce( (map,data) => {
+      if (!map[data]) map[data] = 1
+      else map[data] += 1
+      return map
+    }, {})
+    console.log(sumData)
   </script>
 </body>
 </html>

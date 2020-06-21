@@ -17,6 +17,34 @@
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 
+const cities = []
+fetch(endpoint)
+  .then(res => res.json())
+  .then(data => cities.push(...data))
+
+console.log(cities)
+
+let searchInput = document.querySelector(".search-form input")
+let suggestions = document.querySelector(".suggestions")
+
+const displayFilteredList = (evt) => {
+  const regex = new RegExp(evt.target.value, "gi")
+
+  let filteredList = cities.filter(data => {
+    return data.city.match(regex) || data.state.match(regex)
+  }).map( data => {
+    let city = data.city.replace(regex, `<span class="hl">${evt.target.value}</span>`)
+    let state = data.state.replace(regex, `<span class="hl">${evt.target.value}</span>`)
+
+    return `<li><span class="name">${city}, ${state}</span></li>`
+  }).join("")
+  suggestions.innerHTML = filteredList
+}
+
+searchInput.addEventListener('change', displayFilteredList)
+searchInput.addEventListener('keyup', displayFilteredList)
+
+
 </script>
 </body>
 </html>
