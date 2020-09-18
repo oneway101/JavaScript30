@@ -7,6 +7,19 @@
 </head>
 <body>
 <script>
+  let konamicode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'a', 'b']
+  let arr = [...konamicode]
+  const detectKeys = (e) => {
+
+
+    if (arr.length > 0 && arr[0] === e.key) {
+      arr.shift()
+      if (arr.length === 0) cornify_add()
+    }
+    else arr = [...konamicode]
+    console.log(arr, konamicode)
+  }
+  window.addEventListener('keyup', detectKeys)
 </script>
 </body>
 </html>
