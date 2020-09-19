@@ -58,6 +58,34 @@
       };
     }
 
+    let images = document.querySelectorAll('.site-wrap img')
+
+    function detectScrollLocation(e) {
+
+      images.forEach( img => {
+          /*
+          slide in the image on the view
+          when the viewport top crosses over the image center position
+          when the bottom of the image is shown on the viewport
+          */
+
+          let imageCenter = img.offsetTop + (img.height/2)
+          let imageBottom = img.offsetTop + img.height
+          let viewportBottom = window.scrollY + window.innerHeight
+
+          if (window.scrollY <= imageCenter && imageBottom <= viewportBottom) {
+            img.classList.add('active')
+          } else {
+            img.classList.remove('active')
+          }
+      })
+
+
+    }
+
+    window.addEventListener('scroll', debounce(detectScrollLocation))
+
+
   </script>
 
   <style>
@@ -68,11 +96,11 @@
       font-size: 20px;
       font-weight: 200;
     }
-    
+
     body {
       margin: 0;
     }
-    
+
     *, *:before, *:after {
       box-sizing: inherit;
     }
@@ -107,7 +135,7 @@
     .align-left.slide-in {
       transform: translateX(-30%) scale(0.95);
     }
-    
+
     .align-right.slide-in {
       transform: translateX(30%) scale(0.95);
     }
